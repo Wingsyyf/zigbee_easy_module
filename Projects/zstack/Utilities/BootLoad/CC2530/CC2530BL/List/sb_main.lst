@@ -1,0 +1,1248 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V8.10.1.40194/W32 for 8051         08/Apr/2020  13:35:48 #
+# Copyright 2004-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Core               =  plain                                              #
+#    Code model         =  near                                               #
+#    Data model         =  large                                              #
+#    Calling convention =  xdata reentrant                                    #
+#    Constant location  =  data                                               #
+#    Dptr setup         =  1,16                                               #
+#    Source file        =  F:\zigbee³ÌÐò\Ä£¿é³ÌÐòv1.0\ZStack-CC2530-2.5.1a\Pr #
+#                          ojects\zstack\Utilities\BootLoad\CC2530\source\sb_ #
+#                          main.c                                             #
+#    Command line       =  F:\zigbee³ÌÐò\Ä£¿é³ÌÐòv1.0\ZStack-CC2530-2.5.1a\Pr #
+#                          ojects\zstack\Utilities\BootLoad\CC2530\source\sb_ #
+#                          main.c -D HAL_SB_BOOT_CODE -D HAL_UART=TRUE -D     #
+#                          HAL_UART_DMA=0 -D HAL_UART_ISR=1 -D                #
+#                          HAL_UART_ISR_RX_MAX=254 -lC                        #
+#                          F:\zigbee³ÌÐò\Ä£¿é³ÌÐòv1.0\ZStack-CC2530-2.5.1a\Pr #
+#                          ojects\zstack\Utilities\BootLoad\CC2530\CC2530BL\L #
+#                          ist\ -lA F:\zigbee³ÌÐò\Ä£¿é³ÌÐòv1.0\ZStack-CC2530- #
+#                          2.5.1a\Projects\zstack\Utilities\BootLoad\CC2530\C #
+#                          C2530BL\List\ -o F:\zigbee³ÌÐò\Ä£¿é³ÌÐòv1.0\ZStack #
+#                          -CC2530-2.5.1a\Projects\zstack\Utilities\BootLoad\ #
+#                          CC2530\CC2530BL\Obj\ -e --debug --core=plain       #
+#                          --dptr=16,1 --data_model=large --code_model=near   #
+#                          --calling_convention=xdata_reentrant               #
+#                          --place_constants=data --nr_virtual_regs 16 -I     #
+#                          F:\zigbee³ÌÐò\Ä£¿é³ÌÐòv1.0\ZStack-CC2530-2.5.1a\Pr #
+#                          ojects\zstack\Utilities\BootLoad\CC2530\..\Source\ #
+#                           -I F:\zigbee³ÌÐò\Ä£¿é³ÌÐòv1.0\ZStack-CC2530-2.5.1 #
+#                          a\Projects\zstack\Utilities\BootLoad\CC2530\source #
+#                          \ -I F:\zigbee³ÌÐò\Ä£¿é³ÌÐòv1.0\ZStack-CC2530-2.5. #
+#                          1a\Projects\zstack\Utilities\BootLoad\CC2530\..\.. #
+#                          \..\..\..\Components\hal\include\ -I               #
+#                          F:\zigbee³ÌÐò\Ä£¿é³ÌÐòv1.0\ZStack-CC2530-2.5.1a\Pr #
+#                          ojects\zstack\Utilities\BootLoad\CC2530\..\..\..\. #
+#                          .\..\Components\hal\target\_COMMON\CC2530\ -I      #
+#                          F:\zigbee³ÌÐò\Ä£¿é³ÌÐòv1.0\ZStack-CC2530-2.5.1a\Pr #
+#                          ojects\zstack\Utilities\BootLoad\CC2530\..\..\..\. #
+#                          .\..\Components\hal\target\CC2530EB\ -Ohz          #
+#                          --require_prototypes                               #
+#    List file          =  F:\zigbee³ÌÐò\Ä£¿é³ÌÐòv1.0\ZStack-CC2530-2.5.1a\Pr #
+#                          ojects\zstack\Utilities\BootLoad\CC2530\CC2530BL\L #
+#                          ist\sb_main.lst                                    #
+#    Object file        =  F:\zigbee³ÌÐò\Ä£¿é³ÌÐòv1.0\ZStack-CC2530-2.5.1a\Pr #
+#                          ojects\zstack\Utilities\BootLoad\CC2530\CC2530BL\O #
+#                          bj\sb_main.r51                                     #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+F:\zigbee³ÌÐò\Ä£¿é³ÌÐòv1.0\ZStack-CC2530-2.5.1a\Projects\zstack\Utilities\BootLoad\CC2530\source\sb_main.c
+      1          /**************************************************************************************************
+      2            Filename:       sb_main.c
+      3            Revised:        $Date: 2012-03-29 12:09:02 -0700 (Thu, 29 Mar 2012) $
+      4            Revision:       $Revision: 29943 $
+      5          
+      6            Description:    This module contains the main functionality of a Boot Loader for CC2530.
+      7                            It is a minimal subset of functionality from ZMain.c, OnBoard.c and various
+      8                            _hal_X.c modules for the CC2530EB target.
+      9          
+     10          
+     11            Copyright 2009-2012 Texas Instruments Incorporated. All rights reserved.
+     12          
+     13            IMPORTANT: Your use of this Software is limited to those specific rights
+     14            granted under the terms of a software license agreement between the user
+     15            who downloaded the software, his/her employer (which must be your employer)
+     16            and Texas Instruments Incorporated (the "License").  You may not use this
+     17            Software unless you agree to abide by the terms of the License. The License
+     18            limits your use, and you acknowledge, that the Software may not be modified,
+     19            copied or distributed unless embedded on a Texas Instruments microcontroller
+     20            or used solely and exclusively in conjunction with a Texas Instruments radio
+     21            frequency transceiver, which is integrated into your product.  Other than for
+     22            the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+     23            works of, modify, distribute, perform, display or sell this Software and/or
+     24            its documentation for any purpose.
+     25          
+     26            YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+     27            PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+     28            INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
+     29            NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+     30            TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+     31            NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+     32            LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+     33            INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE
+     34            OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT
+     35            OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+     36            (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+     37          
+     38            Should you have any questions regarding your right to use this Software,
+     39            contact Texas Instruments Incorporated at www.TI.com.
+     40          **************************************************************************************************/
+     41          
+     42          /* ------------------------------------------------------------------------------------------------
+     43           *                                          Includes
+     44           * ------------------------------------------------------------------------------------------------
+     45           */
+     46          
+     47          #include "hal_board_cfg.h"
+
+   \                                 In  segment SFR_AN, at 0x80
+   \   union <unnamed> volatile __sfr _A_P0
+   \                     _A_P0:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0x86
+   \   unsigned char volatile __sfr U0CSR
+   \                     U0CSR:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0x88
+   \   union <unnamed> volatile __sfr _A_TCON
+   \                     _A_TCON:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0x8f
+   \   unsigned char volatile __sfr P0INP
+   \                     P0INP:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0x90
+   \   union <unnamed> volatile __sfr _A_P1
+   \                     _A_P1:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0x9d
+   \   unsigned char volatile __sfr SLEEPSTA
+   \                     SLEEPSTA:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0x9e
+   \   unsigned char volatile __sfr CLKCONSTA
+   \                     CLKCONSTA:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xa0
+   \   union <unnamed> volatile __sfr _A_P2
+   \                     _A_P2:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xa8
+   \   union <unnamed> volatile __sfr _A_IEN0
+   \                     _A_IEN0:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xb4
+   \   unsigned char volatile __sfr ADCCON1
+   \                     ADCCON1:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xb6
+   \   unsigned char volatile __sfr ADCCON3
+   \                     ADCCON3:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xbb
+   \   unsigned char volatile __sfr ADCH
+   \                     ADCH:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xbe
+   \   unsigned char volatile __sfr SLEEPCMD
+   \                     SLEEPCMD:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xc1
+   \   unsigned char volatile __sfr U0DBUF
+   \                     U0DBUF:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xc2
+   \   unsigned char volatile __sfr U0BAUD
+   \                     U0BAUD:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xc4
+   \   unsigned char volatile __sfr U0UCR
+   \                     U0UCR:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xc5
+   \   unsigned char volatile __sfr U0GCR
+   \                     U0GCR:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xc6
+   \   unsigned char volatile __sfr CLKCONCMD
+   \                     CLKCONCMD:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xc9
+   \   unsigned char volatile __sfr WDCTL
+   \                     WDCTL:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xd4
+   \   unsigned char volatile __sfr DMA0CFGL
+   \                     DMA0CFGL:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xd5
+   \   unsigned char volatile __sfr DMA0CFGH
+   \                     DMA0CFGH:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xe8
+   \   union <unnamed> volatile __sfr _A_IRCON2
+   \                     _A_IRCON2:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xf1
+   \   unsigned char volatile __sfr PERCFG
+   \                     PERCFG:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xf2
+   \   unsigned char volatile __sfr ADCCFG
+   \                     ADCCFG:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xf3
+   \   unsigned char volatile __sfr P0SEL
+   \                     P0SEL:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xfd
+   \   unsigned char volatile __sfr P0DIR
+   \                     P0DIR:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xfe
+   \   unsigned char volatile __sfr P1DIR
+   \                     P1DIR:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xff
+   \   unsigned char volatile __sfr P2DIR
+   \                     P2DIR:
+   \   000000                DS 1
+     48          #include "hal_adc.h"
+     49          #include "hal_dma.h"
+     50          #include "hal_flash.h"
+     51          #include "hal_types.h"
+     52          #include "sb_exec.h"
+     53          #include "sb_main.h"
+     54          
+     55          /* ------------------------------------------------------------------------------------------------
+     56           *                                          Constants
+     57           * ------------------------------------------------------------------------------------------------
+     58           */
+     59          
+     60          /* Delay jump to valid RC code, waiting for a force boot or force run indication via the
+     61           * physical transport or button press indication. Set to zero to jump immediately, this
+     62           * necessitates the RC to invalidate checksum/shadow to force boot mode.
+     63           */
+     64          #if !defined SB_UART_DELAY
+     65          #define SB_UART_DELAY  0x260000  // About 1 minute.
+     66          #endif
+     67          
+     68          /* ------------------------------------------------------------------------------------------------
+     69           *                                           Macros
+     70           * ------------------------------------------------------------------------------------------------
+     71           */
+     72          
+     73          #if HAL_KEY
+     74          #define SB1_PRESS  (P0_1 != 0)
+     75          #define SB2_PRESS  (P2_0 != 0)
+     76          #else
+     77          #define SB1_PRESS   0
+     78          #define SB2_PRESS   0
+     79          #endif
+     80          
+     81          #if HAL_LED
+     82          #define SB_INIT_LEDS() st (  \
+     83            HAL_TURN_OFF_LED1();  \
+     84            LED1_DDR |= LED1_BV;  \
+     85            HAL_TURN_OFF_LED2();  \
+     86            LED2_DDR |= LED2_BV;  \
+     87          )
+     88          #define SB_TURN_OFF_LED1()  HAL_TURN_OFF_LED1()
+     89          #define SB_TURN_ON_LED1()   HAL_TURN_ON_LED1()
+     90          #define SB_TOGGLE_LED1()    HAL_TOGGLE_LED1()
+     91          #define SB_TURN_OFF_LED2()  HAL_TURN_OFF_LED2()
+     92          #define SB_TURN_ON_LED2()   HAL_TURN_ON_LED2()
+     93          #define SB_TOGGLE_LED2()    HAL_TOGGLE_LED2()
+     94          #else
+     95          #define SB_TURN_OFF_LED1()
+     96          #define SB_TURN_ON_LED1()
+     97          #define SB_TOGGLE_LED1()
+     98          #define SB_TURN_OFF_LED2()
+     99          #define SB_TURN_ON_LED2()
+    100          #define SB_TOGGLE_LED2()
+    101          #endif
+    102          
+    103          #if !defined ResetWasWatchDog
+    104          #define ResetWasWatchDog ((SLEEPSTA & 0x18) == 0x10)
+    105          #endif
+    106          
+    107          /* ------------------------------------------------------------------------------------------------
+    108           *                                       Global Variables
+    109           * ------------------------------------------------------------------------------------------------
+    110           */
+    111          
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+    112          halDMADesc_t dmaCh0;
+   \                     dmaCh0:
+   \   000000                DS 8
+   \   000008                REQUIRE __INIT_XDATA_Z
+    113          
+    114          /* ------------------------------------------------------------------------------------------------
+    115           *                                       Local Functions
+    116           * ------------------------------------------------------------------------------------------------
+    117           */
+    118          
+    119          static void sblExec(void);
+    120          static void sblInit(void);
+    121          static void sblJump(void);
+    122          static void sblWait(void);
+    123          static void vddWait(uint8 vdd);
+    124          
+    125          #include "_hal_uart_isr.c"
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \   static uartISRCfg_t isrCfg
+   \                     isrCfg:
+   \   000000                DS 517
+   \   000205                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+   \   __near_func __xdata_reentrant uint16 HalUARTReadISR(uint8 *, uint16)
+   \                     HalUARTReadISR:
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?FUNC_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+   \   000005   7800         MOV     R0,#0x0
+   \   000007   7900         MOV     R1,#0x0
+   \   000009   802C         SJMP    ??HalUARTReadISR_0
+   \                     ??HalUARTReadISR_1:
+   \   00000B   74..         MOV     A,#isrCfg & 0xff
+   \   00000D   25..         ADD     A,?V0 + 0
+   \   00000F   F582         MOV     DPL,A
+   \   000011   74..         MOV     A,#(isrCfg >> 8) & 0xff
+   \   000013   3400         ADDC    A,#0x0
+   \   000015   F583         MOV     DPH,A
+   \   000017   E0           MOVX    A,@DPTR
+   \   000018   8A82         MOV     DPL,R2
+   \   00001A   8B83         MOV     DPH,R3
+   \   00001C   F0           MOVX    @DPTR,A
+   \   00001D   90....       MOV     DPTR,#isrCfg + 254
+   \   000020   E0           MOVX    A,@DPTR
+   \   000021   04           INC     A
+   \   000022   12....       LCALL   ?Subroutine1
+   \                     ??CrossCallReturnLabel_0:
+   \   000025   C3           CLR     C
+   \   000026   94FE         SUBB    A,#-0x2
+   \   000028   4005         JC      ??HalUARTReadISR_2
+   \   00002A   90....       MOV     DPTR,#isrCfg + 254
+   \   00002D   E4           CLR     A
+   \   00002E   F0           MOVX    @DPTR,A
+   \                     ??HalUARTReadISR_2:
+   \   00002F   E8           MOV     A,R0
+   \   000030   2401         ADD     A,#0x1
+   \   000032   08           INC     R0
+   \   000033   E9           MOV     A,R1
+   \   000034   3400         ADDC    A,#0x0
+   \   000036   F9           MOV     R1,A
+   \                     ??HalUARTReadISR_0:
+   \   000037   90....       MOV     DPTR,#isrCfg + 254
+   \   00003A   E0           MOVX    A,@DPTR
+   \   00003B   F5..         MOV     ?V0 + 0,A
+   \   00003D   A3           INC     DPTR
+   \   00003E   E0           MOVX    A,@DPTR
+   \   00003F   65..         XRL     A,?V0 + 0
+   \   000041   6007         JZ      ??HalUARTReadISR_3
+   \   000043   C3           CLR     C
+   \   000044   E8           MOV     A,R0
+   \   000045   9C           SUBB    A,R4
+   \   000046   E9           MOV     A,R1
+   \   000047   9D           SUBB    A,R5
+   \   000048   40C1         JC      ??HalUARTReadISR_1
+   \                     ??HalUARTReadISR_3:
+   \   00004A   E8           MOV     A,R0
+   \   00004B   FA           MOV     R2,A
+   \   00004C   E9           MOV     A,R1
+   \   00004D   FB           MOV     R3,A
+   \   00004E                REQUIRE ?Subroutine0
+   \   00004E                ; // Fall through to label ?Subroutine0
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   7F02         MOV     R7,#0x2
+   \   000002   02....       LJMP    ?FUNC_LEAVE_XDATA
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+   \                     ?Subroutine1:
+   \   000000   F0           MOVX    @DPTR,A
+   \   000001   8A82         MOV     DPL,R2
+   \   000003   8B83         MOV     DPH,R3
+   \   000005   A3           INC     DPTR
+   \   000006   AA82         MOV     R2,DPL
+   \   000008   AB83         MOV     R3,DPH
+   \   00000A   22           RET
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+   \   __near_func __xdata_reentrant uint16 HalUARTWriteISR(uint8 *, uint16)
+   \                     HalUARTWriteISR:
+   \   000000   74F5         MOV     A,#-0xb
+   \   000002   12....       LCALL   ?FUNC_ENTER_XDATA
+   \   000005                ; Saved register size: 11
+   \   000005                ; Auto size: 0
+   \   000005   90....       MOV     DPTR,#isrCfg + 512
+   \   000008   E0           MOVX    A,@DPTR
+   \   000009   FE           MOV     R6,A
+   \   00000A   A3           INC     DPTR
+   \   00000B   E0           MOVX    A,@DPTR
+   \   00000C   FF           MOV     R7,A
+   \   00000D   8F..         MOV     ?V0 + 0,R7
+   \   00000F   EE           MOV     A,R6
+   \   000010   C3           CLR     C
+   \   000011   95..         SUBB    A,?V0 + 0
+   \   000013   F8           MOV     R0,A
+   \   000014   95E0         SUBB    A,0xE0 /* A   */
+   \   000016   F9           MOV     R1,A
+   \   000017   EF           MOV     A,R7
+   \   000018   C3           CLR     C
+   \   000019   9E           SUBB    A,R6
+   \   00001A   E8           MOV     A,R0
+   \   00001B   500B         JNC     ??HalUARTWriteISR_0
+   \   00001D   12....       LCALL   ?Subroutine2
+   \                     ??CrossCallReturnLabel_2:
+   \   000020   7016         JNZ     ??HalUARTWriteISR_1
+   \                     ??HalUARTWriteISR_2:
+   \   000022   7800         MOV     R0,#0x0
+   \   000024   7900         MOV     R1,#0x0
+   \   000026   8023         SJMP    ??HalUARTWriteISR_3
+   \                     ??HalUARTWriteISR_0:
+   \   000028   24FD         ADD     A,#-0x3
+   \   00002A   18           DEC     R0
+   \   00002B   18           DEC     R0
+   \   00002C   18           DEC     R0
+   \   00002D   E9           MOV     A,R1
+   \   00002E   3400         ADDC    A,#0x0
+   \   000030   F9           MOV     R1,A
+   \   000031   C3           CLR     C
+   \   000032   E8           MOV     A,R0
+   \   000033   9C           SUBB    A,R4
+   \   000034   E9           MOV     A,R1
+   \   000035   9D           SUBB    A,R5
+   \   000036   50EA         JNC     ??HalUARTWriteISR_2
+   \                     ??HalUARTWriteISR_1:
+   \   000038   7A00         MOV     R2,#0x0
+   \   00003A   7B00         MOV     R3,#0x0
+   \   00003C   8045         SJMP    ??HalUARTWriteISR_4
+   \                     ??HalUARTWriteISR_5:
+   \   00003E   E0           MOVX    A,@DPTR
+   \   00003F   04           INC     A
+   \                     ??HalUARTWriteISR_6:
+   \   000040   F0           MOVX    @DPTR,A
+   \   000041   D2E9         SETB    0xe8.1
+   \   000043   E8           MOV     A,R0
+   \   000044   2401         ADD     A,#0x1
+   \   000046   08           INC     R0
+   \   000047   E9           MOV     A,R1
+   \   000048   3400         ADDC    A,#0x0
+   \   00004A   F9           MOV     R1,A
+   \                     ??HalUARTWriteISR_3:
+   \   00004B   C3           CLR     C
+   \   00004C   E8           MOV     A,R0
+   \   00004D   9C           SUBB    A,R4
+   \   00004E   E9           MOV     A,R1
+   \   00004F   9D           SUBB    A,R5
+   \   000050   502D         JNC     ??HalUARTWriteISR_7
+   \   000052   8A82         MOV     DPL,R2
+   \   000054   8B83         MOV     DPH,R3
+   \   000056   E0           MOVX    A,@DPTR
+   \   000057   C0E0         PUSH    A
+   \   000059   90....       MOV     DPTR,#isrCfg + 513
+   \   00005C   E0           MOVX    A,@DPTR
+   \   00005D   FE           MOV     R6,A
+   \   00005E   74..         MOV     A,#(isrCfg + 2) & 0xff
+   \   000060   2E           ADD     A,R6
+   \   000061   F582         MOV     DPL,A
+   \   000063   74..         MOV     A,#((isrCfg + 258) >> 8) & 0xff
+   \   000065   3400         ADDC    A,#0x0
+   \   000067   F583         MOV     DPH,A
+   \   000069   D0E0         POP     A
+   \   00006B   12....       LCALL   ?Subroutine1
+   \                     ??CrossCallReturnLabel_1:
+   \   00006E   90....       MOV     DPTR,#isrCfg + 514
+   \   000071   E4           CLR     A
+   \   000072   F0           MOVX    @DPTR,A
+   \   000073   90....       MOV     DPTR,#isrCfg + 513
+   \   000076   E0           MOVX    A,@DPTR
+   \   000077   C3           CLR     C
+   \   000078   94FD         SUBB    A,#-0x3
+   \   00007A   40C2         JC      ??HalUARTWriteISR_5
+   \   00007C   E4           CLR     A
+   \   00007D   80C1         SJMP    ??HalUARTWriteISR_6
+   \                     ??HalUARTWriteISR_7:
+   \   00007F   E8           MOV     A,R0
+   \   000080   FA           MOV     R2,A
+   \   000081   E9           MOV     A,R1
+   \   000082   FB           MOV     R3,A
+   \                     ??HalUARTWriteISR_4:
+   \   000083   7F04         MOV     R7,#0x4
+   \   000085   02....       LJMP    ?FUNC_LEAVE_XDATA
+   \   000088                REQUIRE _A_IRCON2
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+   \                     ?Subroutine2:
+   \   000000   24FF         ADD     A,#-0x1
+   \   000002   18           DEC     R0
+   \   000003   E9           MOV     A,R1
+   \   000004   34FF         ADDC    A,#-0x1
+   \   000006   F9           MOV     R1,A
+   \   000007   E8           MOV     A,R0
+   \   000008   49           ORL     A,R1
+   \   000009   22           RET
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+   \   static __near_func __xdata_reentrant void HalUARTPollISR(void)
+   \                     HalUARTPollISR:
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?FUNC_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+   \   000005   8026         SJMP    ??HalUARTPollISR_0
+   \                     ??HalUARTPollISR_1:
+   \   000007   E5C1         MOV     A,0xc1
+   \   000009   C28B         CLR     0x88.3
+   \   00000B   C0E0         PUSH    A
+   \   00000D   90....       MOV     DPTR,#isrCfg + 255
+   \   000010   E0           MOVX    A,@DPTR
+   \   000011   F8           MOV     R0,A
+   \   000012   74..         MOV     A,#isrCfg & 0xff
+   \   000014   28           ADD     A,R0
+   \   000015   F582         MOV     DPL,A
+   \   000017   74..         MOV     A,#(isrCfg >> 8) & 0xff
+   \   000019   3400         ADDC    A,#0x0
+   \   00001B   F583         MOV     DPH,A
+   \   00001D   D0E0         POP     A
+   \   00001F   F0           MOVX    @DPTR,A
+   \   000020   90....       MOV     DPTR,#isrCfg + 255
+   \   000023   E0           MOVX    A,@DPTR
+   \   000024   04           INC     A
+   \   000025   F0           MOVX    @DPTR,A
+   \   000026   C3           CLR     C
+   \   000027   94FE         SUBB    A,#-0x2
+   \   000029   4002         JC      ??HalUARTPollISR_0
+   \   00002B   E4           CLR     A
+   \   00002C   F0           MOVX    @DPTR,A
+   \                     ??HalUARTPollISR_0:
+   \   00002D   A28B         MOV     C,0x88.3
+   \   00002F   40D6         JC      ??HalUARTPollISR_1
+   \                     ??HalUARTPollISR_2:
+   \   000031   A2E9         MOV     C,0xe8.1
+   \   000033   502C         JNC     ??HalUARTPollISR_3
+   \   000035   C2E9         CLR     0xe8.1
+   \   000037   90....       MOV     DPTR,#isrCfg + 512
+   \   00003A   E0           MOVX    A,@DPTR
+   \   00003B   F5..         MOV     ?V0 + 0,A
+   \   00003D   A3           INC     DPTR
+   \   00003E   E0           MOVX    A,@DPTR
+   \   00003F   65..         XRL     A,?V0 + 0
+   \   000041   60EE         JZ      ??HalUARTPollISR_2
+   \   000043   74..         MOV     A,#(isrCfg + 2) & 0xff
+   \   000045   25..         ADD     A,?V0 + 0
+   \   000047   F582         MOV     DPL,A
+   \   000049   74..         MOV     A,#((isrCfg + 258) >> 8) & 0xff
+   \   00004B   3400         ADDC    A,#0x0
+   \   00004D   F583         MOV     DPH,A
+   \   00004F   E0           MOVX    A,@DPTR
+   \   000050   F5C1         MOV     0xc1,A
+   \   000052   90....       MOV     DPTR,#isrCfg + 512
+   \   000055   E0           MOVX    A,@DPTR
+   \   000056   04           INC     A
+   \   000057   F0           MOVX    @DPTR,A
+   \   000058   C3           CLR     C
+   \   000059   94FE         SUBB    A,#-0x2
+   \   00005B   40D4         JC      ??HalUARTPollISR_2
+   \   00005D   E4           CLR     A
+   \   00005E   F0           MOVX    @DPTR,A
+   \   00005F   80D0         SJMP    ??HalUARTPollISR_2
+   \                     ??HalUARTPollISR_3:
+   \   000061   02....       LJMP    ?Subroutine0
+   \   000064                REQUIRE _A_TCON
+   \   000064                REQUIRE _A_IRCON2
+   \   000064                REQUIRE U0DBUF
+    126          
+    127          /**************************************************************************************************
+    128           * @fn          main
+    129           *
+    130           * @brief       C-code main functionality.
+    131           *
+    132           * input parameters
+    133           *
+    134           * None.
+    135           *
+    136           * output parameters
+    137           *
+    138           * None.
+    139           *
+    140           * @return      None.
+    141           **************************************************************************************************
+    142           */
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+    143          void main(void)
+   \                     main:
+    144          {
+   \   000000                ; Auto size: 1
+   \   000000   74FF         MOV     A,#-0x1
+   \   000002   12....       LCALL   ?ALLOC_XSTACK8
+    145            vddWait(VDD_MIN_RUN);
+   \   000005                ; Setup parameters for call to function vddWait
+   \   000005   794A         MOV     R1,#0x4a
+   \   000007   12....       LCALL   vddWait
+    146            HAL_BOARD_INIT();
+   \   00000A   53BEFB       ANL     0xbe,#0xfb
+   \                     ??main_0:
+   \   00000D   E59D         MOV     A,0x9d
+   \   00000F   A2E6         MOV     C,0xE0 /* A   */.6
+   \   000011   50FA         JNC     ??main_0
+   \   000013   00           NOP
+   \   000014   78F8         MOV     R0,#-0x8
+   \   000016   7901         MOV     R1,#0x1
+   \                     ??main_1:
+   \   000018   00           NOP
+   \   000019   E8           MOV     A,R0
+   \   00001A   12....       LCALL   ?Subroutine2
+   \                     ??CrossCallReturnLabel_3:
+   \   00001D   70F9         JNZ     ??main_1
+   \   00001F   75C680       MOV     0xc6,#-0x80
+   \                     ??main_2:
+   \   000022   7480         MOV     A,#-0x80
+   \   000024   659E         XRL     A,0x9e
+   \   000026   70FA         JNZ     ??main_2
+   \   000028   43BE04       ORL     0xbe,#0x4
+   \   00002B   906270       MOV     DPTR,#0x6270
+   \   00002E   7408         MOV     A,#0x8
+   \   000030   F0           MOVX    @DPTR,A
+   \   000031   43FE01       ORL     0xfe,#0x1
+   \   000034   43FD80       ORL     0xfd,#0x80
+   \   000037   438F01       ORL     0x8f,#0x1
+   \   00003A                ; Setup parameters for call to function MAC_RfFrontendSetup
+   \   00003A   12....       LCALL   MAC_RfFrontendSetup
+    147          
+    148            if (sbImgValid())
+   \   00003D                ; Setup parameters for call to function sbImgValid
+   \   00003D   12....       LCALL   sbImgValid
+   \   000040   E9           MOV     A,R1
+   \   000041   6078         JZ      ??main_3
+    149            {
+    150              if ((SB_UART_DELAY == 0) || ResetWasWatchDog)
+   \   000043   E59D         MOV     A,0x9d
+   \   000045   5418         ANL     A,#0x18
+   \   000047   6410         XRL     A,#0x10
+   \   000049   7003         JNZ     ??main_4
+    151              {
+    152                sblJump();
+   \   00004B                ; Setup parameters for call to function sblJump
+   \   00004B   12....       LCALL   sblJump
+    153              }
+    154          
+    155              sblInit();
+   \                     ??main_4:
+   \   00004E                ; Setup parameters for call to function sblInit
+   \   00004E   12....       LCALL   sblInit
+    156              sblWait();
+   \   000051   90....       MOV     DPTR,#__Constant_260000
+   \   000054   78..         MOV     R0,#?V0 + 0
+   \   000056   12....       LCALL   ?L_MOV_X
+   \   000059   8029         SJMP    ??main_5
+   \                     ??main_6:
+   \   00005B   A2A0         MOV     C,0xa0.0
+   \   00005D   401E         JC      ??main_7
+   \   00005F   85....       MOV     ?V0 + 4,?V0 + 0
+   \   000062   85....       MOV     ?V0 + 5,?V0 + 1
+   \   000065   85....       MOV     ?V0 + 6,?V0 + 2
+   \   000068   85....       MOV     ?V0 + 7,?V0 + 3
+   \   00006B   90....       MOV     DPTR,#__Constant_ffffffff
+   \   00006E   78..         MOV     R0,#?V0 + 0
+   \   000070   12....       LCALL   ?L_ADD_X
+   \   000073   E5..         MOV     A,?V0 + 4
+   \   000075   45..         ORL     A,?V0 + 5
+   \   000077   45..         ORL     A,?V0 + 6
+   \   000079   45..         ORL     A,?V0 + 7
+   \   00007B   7003         JNZ     ??main_8
+   \                     ??main_7:
+   \   00007D                ; Setup parameters for call to function sblJump
+   \   00007D   12....       LCALL   sblJump
+   \                     ??main_8:
+   \   000080   C290         CLR     0x90.0
+   \   000082   D290         SETB    0x90.0
+   \                     ??main_5:
+   \   000084                ; Setup parameters for call to function HalUARTPollISR
+   \   000084   12....       LCALL   HalUARTPollISR
+   \   000087                ; Setup parameters for call to function HalUARTReadISR
+   \   000087   7C01         MOV     R4,#0x1
+   \   000089   7D00         MOV     R5,#0x0
+   \   00008B   85..82       MOV     DPL,?XSP + 0
+   \   00008E   85..83       MOV     DPH,?XSP + 1
+   \   000091   AA82         MOV     R2,DPL
+   \   000093   AB83         MOV     R3,DPH
+   \   000095   12....       LCALL   HalUARTReadISR
+   \   000098   8B..         MOV     ?V0 + 5,R3
+   \   00009A   EA           MOV     A,R2
+   \   00009B   45..         ORL     A,?V0 + 5
+   \   00009D   6012         JZ      ??main_9
+   \   00009F   E0           MOVX    A,@DPTR
+   \   0000A0   64F8         XRL     A,#0xf8
+   \   0000A2   6011         JZ      ??main_10
+   \   0000A4   E0           MOVX    A,@DPTR
+   \   0000A5   6407         XRL     A,#0x7
+   \   0000A7   7008         JNZ     ??main_9
+   \   0000A9   90....       MOV     DPTR,#__Constant_0
+   \   0000AC   78..         MOV     R0,#?V0 + 0
+   \   0000AE   12....       LCALL   ?L_MOV_X
+   \                     ??main_9:
+   \   0000B1   A281         MOV     C,0x80.1
+   \   0000B3   50A6         JNC     ??main_6
+   \                     ??main_10:
+   \   0000B5   C290         CLR     0x90.0
+   \   0000B7   C290         CLR     0x90.0
+    157            }
+   \   0000B9   8003         SJMP    ??main_11
+    158            else
+    159            {
+    160              sblInit();
+   \                     ??main_3:
+   \   0000BB                ; Setup parameters for call to function sblInit
+   \   0000BB   12....       LCALL   sblInit
+    161            }
+    162          
+    163            vddWait(VDD_MIN_NV);
+   \                     ??main_11:
+   \   0000BE                ; Setup parameters for call to function vddWait
+   \   0000BE   794E         MOV     R1,#0x4e
+   \   0000C0   12....       LCALL   vddWait
+    164            sblExec();
+   \   0000C3   90....       MOV     DPTR,#__Constant_0
+   \   0000C6   78..         MOV     R0,#?V0 + 4
+   \   0000C8   12....       LCALL   ?L_MOV_X
+   \   0000CB   8024         SJMP    ??main_12
+   \                     ??main_13:
+   \   0000CD   D290         SETB    0x90.0
+   \   0000CF   D290         SETB    0x90.0
+   \   0000D1   90....       MOV     DPTR,#__Constant_0
+   \   0000D4   78..         MOV     R0,#?V0 + 4
+   \   0000D6   12....       LCALL   ?L_MOV_X
+   \                     ??main_14:
+   \   0000D9                ; Setup parameters for call to function HalUARTPollISR
+   \   0000D9   12....       LCALL   HalUARTPollISR
+   \   0000DC   90....       MOV     DPTR,#__Constant_1
+   \   0000DF   78..         MOV     R0,#?V0 + 4
+   \   0000E1   12....       LCALL   ?L_ADD_X
+   \   0000E4   90....       MOV     DPTR,#__Constant_40000
+   \   0000E7   78..         MOV     R0,#?V0 + 4
+   \   0000E9   12....       LCALL   ?UL_GE_X
+   \   0000EC   50EB         JNC     ??main_14
+   \   0000EE                ; Setup parameters for call to function sblJump
+   \   0000EE   12....       LCALL   sblJump
+   \                     ??main_12:
+   \   0000F1                ; Setup parameters for call to function HalUARTPollISR
+   \   0000F1   12....       LCALL   HalUARTPollISR
+   \   0000F4                ; Setup parameters for call to function sbExec
+   \   0000F4   12....       LCALL   sbExec
+   \   0000F7   E9           MOV     A,R1
+   \   0000F8   6006         JZ      ??main_15
+   \   0000FA                ; Setup parameters for call to function sbImgValid
+   \   0000FA   12....       LCALL   sbImgValid
+   \   0000FD   E9           MOV     A,R1
+   \   0000FE   70CD         JNZ     ??main_13
+   \                     ??main_15:
+   \   000100   85....       MOV     ?V0 + 1,?V0 + 5
+   \   000103   90....       MOV     DPTR,#__Constant_1
+   \   000106   78..         MOV     R0,#?V0 + 4
+   \   000108   12....       LCALL   ?L_ADD_X
+   \   00010B   E5..         MOV     A,?V0 + 1
+   \   00010D   5440         ANL     A,#0x40
+   \   00010F   60E0         JZ      ??main_12
+   \   000111   A290         MOV     C,0x90.0
+   \   000113   5004         JNC     ??main_16
+   \   000115   C290         CLR     0x90.0
+   \   000117   80D8         SJMP    ??main_12
+   \                     ??main_16:
+   \   000119   D290         SETB    0x90.0
+   \   00011B   80D4         SJMP    ??main_12
+   \   00011D                REQUIRE SLEEPCMD
+   \   00011D                REQUIRE SLEEPSTA
+   \   00011D                REQUIRE CLKCONCMD
+   \   00011D                REQUIRE CLKCONSTA
+   \   00011D                REQUIRE P1DIR
+   \   00011D                REQUIRE P0DIR
+   \   00011D                REQUIRE P0INP
+   \   00011D                REQUIRE _A_IEN0
+   \   00011D                REQUIRE WDCTL
+   \   00011D                REQUIRE _A_P0
+   \   00011D                REQUIRE _A_P2
+   \   00011D                REQUIRE _A_P1
+    165            HAL_SYSTEM_RESET();
+    166          }
+    167          
+    168          /**************************************************************************************************
+    169           * @fn          sblExec
+    170           *
+    171           * @brief       Infinite SBL execute loop that jumps upon receiving a code enable.
+    172           *
+    173           * input parameters
+    174           *
+    175           * None.
+    176           *
+    177           * output parameters
+    178           *
+    179           * None.
+    180           *
+    181           * @return      None.
+    182           **************************************************************************************************
+    183           */
+    184          static void sblExec(void)
+    185          {
+    186            uint32 dlyCnt = 0;
+    187          
+    188            while (1)
+    189            {
+    190              HalUARTPollISR();
+    191          
+    192              if (sbExec() && sbImgValid())
+    193              {
+    194                SB_TURN_ON_LED1();
+    195                SB_TURN_ON_LED2();
+    196                // Delay to allow the SB_ENABLE_CMD response to be flushed.
+    197                for (dlyCnt = 0; dlyCnt < 0x40000; dlyCnt++)
+    198                {
+    199                  HalUARTPollISR();
+    200                }
+    201          
+    202                sblJump();
+    203              }
+    204              else if (dlyCnt++ & 0x4000)
+    205              {
+    206                SB_TOGGLE_LED1();
+    207              }
+    208            }
+    209          }
+    210          
+    211          /**************************************************************************************************
+    212           * @fn          sblInit
+    213           *
+    214           * @brief       SBL initialization.
+    215           *
+    216           * input parameters
+    217           *
+    218           * None.
+    219           *
+    220           * output parameters
+    221           *
+    222           * None.
+    223           *
+    224           * @return      None.
+    225           */
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+    226          static void sblInit(void)
+   \                     sblInit:
+    227          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    228            halUARTCfg_t uartConfig;
+    229            /* This is in place of calling HalDmaInit() which would require init of the other 4 DMA
+    230             * descriptors in addition to just Channel 0.
+    231             */
+    232            HAL_DMA_SET_ADDR_DESC0(&dmaCh0);
+   \   000004   74..         MOV     A,#(dmaCh0 >> 8) & 0xff
+   \   000006   F5D5         MOV     0xd5,A
+   \   000008   75D4..       MOV     0xd4,#dmaCh0 & 0xff
+    233          
+    234            HalUARTInitISR();
+   \   00000B   53FF3F       ANL     0xff,#0x3f
+   \   00000E   85FFFF       MOV     0xff,0xff
+   \   000011   53F1FE       ANL     0xf1,#0xfe
+   \   000014   43F30C       ORL     0xf3,#0xc
+   \   000017   53F2F3       ANL     0xf2,#0xf3
+   \   00001A   758680       MOV     0x86,#-0x80
+   \   00001D   75C480       MOV     0xc4,#-0x80
+    235            uartConfig.configured           = TRUE;
+    236            uartConfig.baudRate             = HAL_UART_BR_115200;
+    237            uartConfig.flowControl          = FALSE;
+    238            uartConfig.flowControlThreshold = 0;  // CC2530 by #define - see hal_board_cfg.h
+    239            uartConfig.rx.maxBufSize        = 0;  // CC2530 by #define - see hal_board_cfg.h
+    240            uartConfig.tx.maxBufSize        = 0;  // CC2530 by #define - see hal_board_cfg.h
+    241            uartConfig.idleTimeout          = 0;  // CC2530 by #define - see hal_board_cfg.h
+    242            uartConfig.intEnable            = TRUE;
+    243            uartConfig.callBackFunc         = NULL;
+    244            HalUARTOpenISR(&uartConfig);
+   \   000020   90....       MOV     DPTR,#isrCfg + 515
+   \   000023   E4           CLR     A
+   \   000024   F0           MOVX    @DPTR,A
+   \   000025   A3           INC     DPTR
+   \   000026   F0           MOVX    @DPTR,A
+   \   000027   75C2D8       MOV     0xc2,#-0x28
+   \   00002A   75C50B       MOV     0xc5,#0xb
+   \   00002D   75C402       MOV     0xc4,#0x2
+   \   000030   438640       ORL     0x86,#0x40
+    245          
+    246            SB_INIT_LEDS();
+   \   000033   C290         CLR     0x90.0
+   \   000035   43FE01       ORL     0xfe,#0x1
+   \   000038   C290         CLR     0x90.0
+   \   00003A   43FE02       ORL     0xfe,#0x2
+    247          }
+   \   00003D   D083         POP     DPH
+   \   00003F   D082         POP     DPL
+   \   000041   22           RET
+   \   000042                REQUIRE DMA0CFGH
+   \   000042                REQUIRE DMA0CFGL
+   \   000042                REQUIRE _A_P1
+   \   000042                REQUIRE P1DIR
+   \   000042                REQUIRE U0BAUD
+   \   000042                REQUIRE U0GCR
+   \   000042                REQUIRE U0UCR
+   \   000042                REQUIRE P0SEL
+   \   000042                REQUIRE U0CSR
+   \   000042                REQUIRE P2DIR
+   \   000042                REQUIRE PERCFG
+   \   000042                REQUIRE ADCCFG
+    248          
+    249          /**************************************************************************************************
+    250           * @fn          sblJump
+    251           *
+    252           * @brief       Execute a simple long jump from non-banked SBL code to non-banked RC code space.
+    253           *
+    254           * input parameters
+    255           *
+    256           * None.
+    257           *
+    258           * output parameters
+    259           *
+    260           * None.
+    261           *
+    262           * @return      None.
+    263           */
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+    264          static void sblJump(void)
+   \                     sblJump:
+    265          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
+    266            SB_TURN_ON_LED1();
+   \   000000   D290         SETB    0x90.0
+    267            SB_TURN_ON_LED2();
+   \   000002   D290         SETB    0x90.0
+    268            while (SB1_PRESS || SB2_PRESS);
+   \                     ??sblJump_0:
+   \   000004   A281         MOV     C,0x80.1
+   \   000006   40FC         JC      ??sblJump_0
+   \   000008   A2A0         MOV     C,0xa0.0
+   \   00000A   40F8         JC      ??sblJump_0
+    269            SB_TURN_OFF_LED1();
+   \   00000C   C290         CLR     0x90.0
+    270            SB_TURN_OFF_LED2();
+   \   00000E   C290         CLR     0x90.0
+    271            asm("LJMP 0x2000\n");  // Immediate jump to run-code.
+   \   000010   022000       LJMP 0x2000
+    272            HAL_SYSTEM_RESET();
+   \   000013   C2AF         CLR     0xa8.7
+   \   000015   75C9AB       MOV     0xc9,#-0x55
+   \   000018   75C95B       MOV     0xc9,#0x5b
+   \                     ??sblJump_1:
+   \   00001B   80FE         SJMP    ??sblJump_1
+   \   00001D                REQUIRE _A_P1
+   \   00001D                REQUIRE _A_P0
+   \   00001D                REQUIRE _A_P2
+   \   00001D                REQUIRE _A_IEN0
+   \   00001D                REQUIRE WDCTL
+    273          }
+    274          
+    275          /**************************************************************************************************
+    276           * @fn          sblWait
+    277           *
+    278           * @brief       A timed-out wait loop that exits early upon receiving a force code/sbl byte.
+    279           *
+    280           * input parameters
+    281           *
+    282           * None.
+    283           *
+    284           * output parameters
+    285           *
+    286           * None.
+    287           *
+    288           * @return      None.
+    289           **************************************************************************************************
+    290           */
+    291          static void sblWait(void)
+    292          {
+    293            uint32 dlyCnt = SB_UART_DELAY;
+    294          
+    295            while (1)
+    296            {
+    297              uint8 ch;
+    298          
+    299              HalUARTPollISR();
+    300              if (HalUARTReadISR(&ch, 1))
+    301              {
+    302                if (ch == SB_FORCE_BOOT)
+    303                {
+    304                  break;
+    305                }
+    306                else if (ch == SB_FORCE_RUN)
+    307                {
+    308                  dlyCnt = 0;
+    309                }
+    310              }
+    311          
+    312              if (SB1_PRESS)
+    313              {
+    314                break;
+    315              }
+    316          
+    317              if (SB2_PRESS || (dlyCnt-- == 0))
+    318              {
+    319                sblJump();
+    320              }
+    321          
+    322              // RR-xing LED display while waiting.
+    323              if (dlyCnt & 0x2000)
+    324              {
+    325                SB_TURN_OFF_LED2();
+    326                SB_TURN_ON_LED1();
+    327              }
+    328              else
+    329              {
+    330                SB_TURN_OFF_LED1();
+    331                SB_TURN_ON_LED2();
+    332              }
+    333            }
+    334          
+    335            SB_TURN_OFF_LED1();
+    336            SB_TURN_OFF_LED2();
+    337          }
+    338          
+    339          /**************************************************************************************************
+    340           * @fn          vddWait
+    341           *
+    342           * @brief       Loop waiting for 16 reads of the Vdd over the requested limit.
+    343           *
+    344           * input parameters
+    345           *
+    346           * @param       vdd - Vdd level to wait for.
+    347           *
+    348           * output parameters
+    349           *
+    350           * None.
+    351           *
+    352           * @return      None.
+    353           **************************************************************************************************
+    354           */
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+    355          static void vddWait(uint8 vdd)
+   \                     vddWait:
+    356          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
+    357            uint8 cnt = 16;
+   \   000000   7810         MOV     R0,#0x10
+    358          
+    359            do {
+    360              do {
+    361                ADCCON3 = 0x0F;
+   \                     ??vddWait_0:
+   \   000002   75B60F       MOV     0xb6,#0xf
+    362                while (!(ADCCON1 & 0x80));
+   \                     ??vddWait_1:
+   \   000005   E5B4         MOV     A,0xb4
+   \   000007   A2E7         MOV     C,0xE0 /* A   */.7
+   \   000009   50FA         JNC     ??vddWait_1
+    363              } while (ADCH < vdd);
+   \   00000B   E5BB         MOV     A,0xbb
+   \   00000D   C3           CLR     C
+   \   00000E   99           SUBB    A,R1
+   \   00000F   40F1         JC      ??vddWait_0
+    364            } while (--cnt);
+   \   000011   18           DEC     R0
+   \   000012   E8           MOV     A,R0
+   \   000013   70ED         JNZ     ??vddWait_0
+    365          }
+   \   000015   22           RET
+   \   000016                REQUIRE ADCCON3
+   \   000016                REQUIRE ADCCON1
+   \   000016                REQUIRE ADCH
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
+   \                     __Constant_260000:
+   \   000000                DS 4
+   \   000004                REQUIRE `?<Initializer for __Constant_260000>`
+   \   000004                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for __Constant_260000>`:
+   \   000000   00002600     DD 2490368
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
+   \                     __Constant_ffffffff:
+   \   000000                DS 4
+   \   000004                REQUIRE `?<Initializer for __Constant_ffffffff>`
+   \   000004                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for __Constant_ffffffff>`:
+   \   000000   FFFFFFFF     DD 4294967295
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
+   \                     __Constant_0:
+   \   000000                DS 4
+   \   000004                REQUIRE `?<Initializer for __Constant_0>`
+   \   000004                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for __Constant_0>`:
+   \   000000   00000000     DD 0
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
+   \                     __Constant_1:
+   \   000000                DS 4
+   \   000004                REQUIRE `?<Initializer for __Constant_1>`
+   \   000004                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for __Constant_1>`:
+   \   000000   01000000     DD 1
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
+   \                     __Constant_40000:
+   \   000000                DS 4
+   \   000004                REQUIRE `?<Initializer for __Constant_40000>`
+   \   000004                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for __Constant_40000>`:
+   \   000000   00000400     DD 262144
+    366          
+    367          /**************************************************************************************************
+    368          */
+
+   Maximum stack usage in bytes:
+
+     Function                 ISTACK PSTACK XSTACK
+     --------                 ------ ------ ------
+     HalUARTPollISR               1      0     10
+     HalUARTReadISR               1      0     10
+     HalUARTWriteISR              1      0     11
+     main                         0      0      1
+       -> vddWait                 0      0      2
+       -> MAC_RfFrontendSetup     0      0      2
+       -> sbImgValid              0      0      2
+       -> sblJump                 0      0      2
+       -> sblInit                 0      0      2
+       -> sblJump                 0      0      2
+       -> HalUARTPollISR          0      0      2
+       -> HalUARTReadISR          0      0      2
+       -> sblInit                 0      0      2
+       -> vddWait                 0      0      2
+       -> HalUARTPollISR          0      0      2
+       -> sblJump                 0      0      2
+       -> HalUARTPollISR          0      0      2
+       -> sbExec                  0      0      2
+       -> sbImgValid              0      0      2
+     sblInit                      2      0      1
+     sblJump                      0      0      1
+     vddWait                      0      0      1
+
+
+   Segment part sizes:
+
+     Function/Label                         Bytes
+     --------------                         -----
+     _A_P0                                     1
+     U0CSR                                     1
+     _A_TCON                                   1
+     P0INP                                     1
+     _A_P1                                     1
+     SLEEPSTA                                  1
+     CLKCONSTA                                 1
+     _A_P2                                     1
+     _A_IEN0                                   1
+     ADCCON1                                   1
+     ADCCON3                                   1
+     ADCH                                      1
+     SLEEPCMD                                  1
+     U0DBUF                                    1
+     U0BAUD                                    1
+     U0UCR                                     1
+     U0GCR                                     1
+     CLKCONCMD                                 1
+     WDCTL                                     1
+     DMA0CFGL                                  1
+     DMA0CFGH                                  1
+     _A_IRCON2                                 1
+     PERCFG                                    1
+     ADCCFG                                    1
+     P0SEL                                     1
+     P0DIR                                     1
+     P1DIR                                     1
+     P2DIR                                     1
+     dmaCh0                                    8
+     isrCfg                                  517
+     HalUARTReadISR                           78
+     ?Subroutine0                              5
+     ?Subroutine1                             11
+     HalUARTWriteISR                         136
+     ?Subroutine2                             10
+     HalUARTPollISR                          100
+     main                                    285
+     sblInit                                  66
+     sblJump                                  29
+     vddWait                                  22
+     __Constant_260000                         4
+     ?<Initializer for __Constant_260000>      4
+     __Constant_ffffffff                       4
+     ?<Initializer for __Constant_ffffffff>    4
+     __Constant_0                              4
+     ?<Initializer for __Constant_0>           4
+     __Constant_1                              4
+     ?<Initializer for __Constant_1>           4
+     __Constant_40000                          4
+     ?<Initializer for __Constant_40000>       4
+
+ 
+ 742 bytes in segment NEAR_CODE
+  28 bytes in segment SFR_AN
+  20 bytes in segment XDATA_I
+  20 bytes in segment XDATA_ID
+ 525 bytes in segment XDATA_Z
+ 
+ 742 bytes of CODE  memory (+ 20 bytes shared)
+   0 bytes of DATA  memory (+ 28 bytes shared)
+ 525 bytes of XDATA memory (+ 20 bytes shared)
+
+Errors: none
+Warnings: none
