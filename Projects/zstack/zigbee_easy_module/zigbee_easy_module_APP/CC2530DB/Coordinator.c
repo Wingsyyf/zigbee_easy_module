@@ -157,9 +157,6 @@ uint16 SampleApp_ProcessEvent( uint8 task_id, uint16 events )
 /*********************************************************************
  * @fn      SampleApp_MessageMSGCB
  *
- * @brief   Data message processor callback.  This function processes
- *          any incoming data - probably from other devices.  So, based
- *          on cluster ID, perform the intended action.
  *
  * @param   none
  *
