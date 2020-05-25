@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V8.10.1.40194/W32 for 8051        25/May/2020  14:08:35 /
+// IAR C/C++ Compiler V8.10.1.40194/W32 for 8051        25/May/2020  17:56:24 /
 // Copyright 2004-2011 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -9,21 +9,22 @@
 //    Calling convention =  xdata reentrant                                   /
 //    Constant location  =  data_rom                                          /
 //    Dptr setup         =  1,16                                              /
-//    Source file        =  F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC2530-2. /
-//                          5.1a\Projects\zstack\Samples\SampleApp\Source\Coo /
-//                          rdinator.c                                        /
-//    Command line       =  -f "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC253 /
-//                          0-2.5.1a\Projects\zstack\Samples\SampleApp\CC2530 /
-//                          DB\..\..\..\Tools\CC2530DB\f8wCoord.cfg"          /
-//                          (-DCPU32MHZ -DROOT=__near_func                    /
+//    Source file        =  F:\github\zigbee_easy_module\zigbee_easy_module\P /
+//                          rojects\zstack\zigbee_easy_module\zigbee_easy_mod /
+//                          ule_APP\Source\Coordinator.c                      /
+//    Command line       =  -f F:\github\zigbee_easy_module\zigbee_easy_modul /
+//                          e\Projects\zstack\zigbee_easy_module\zigbee_easy_ /
+//                          module_APP\CC2530DB\..\..\..\Tools\CC2530DB\f8wCo /
+//                          ord.cfg (-DCPU32MHZ -DROOT=__near_func            /
 //                          -DMAC_CFG_APP_PENDING_QUEUE=TRUE                  /
 //                          -DMAC_CFG_TX_DATA_MAX=5 -DMAC_CFG_TX_MAX=8        /
 //                          -DMAC_CFG_RX_MAX=5 -DZDO_COORDINATOR -DRTR_NWK)   /
-//                          -f "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC253 /
-//                          0-2.5.1a\Projects\zstack\Samples\SampleApp\CC2530 /
-//                          DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg"         /
-//                          (-DZIGBEEPRO -DSECURE=0 -DZG_SECURE_DYNAMIC=0     /
-//                          -DREFLECTOR -DDEFAULT_CHANLIST=0x04000000         /
+//                          -f F:\github\zigbee_easy_module\zigbee_easy_modul /
+//                          e\Projects\zstack\zigbee_easy_module\zigbee_easy_ /
+//                          module_APP\CC2530DB\..\..\..\Tools\CC2530DB\f8wCo /
+//                          nfig.cfg (-DZIGBEEPRO -DSECURE=0                  /
+//                          -DZG_SECURE_DYNAMIC=0 -DREFLECTOR                 /
+//                          -DDEFAULT_CHANLIST=0x04000000                     /
 //                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                      /
 //                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_M /
 //                          ASK=0x007F -DBEACON_REQUEST_DELAY=100             /
@@ -44,90 +45,100 @@
 //                          __code" -DGENERIC=__generic                       /
 //                          -DRFD_RCVC_ALWAYS_ON=FALSE -DPOLL_RATE=1000       /
 //                          -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100)  /
-//                          -DREJOIN_POLL_RATE=440 "F:\zigbee程序\模块程序v2. /
-//                          0(0525)\ZStack-CC2530-2.5.1a\Projects\zstack\Samp /
-//                          les\SampleApp\Source\Coordinator.c" -D ZTOOL_P1   /
-//                          -D xMT_TASK -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
-//                          xLCD_SUPPORTED=DEBUG -D HAL_UART=TRUE -D          /
-//                          HAL_LED=TRUE -D NV_INIT -D NV_RESTORE -lC         /
-//                          "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC2530-2 /
-//                          .5.1a\Projects\zstack\Samples\SampleApp\CC2530DB\ /
-//                          CoordinatorEB\List\" -lA                          /
-//                          "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC2530-2 /
-//                          .5.1a\Projects\zstack\Samples\SampleApp\CC2530DB\ /
-//                          CoordinatorEB\List\" --diag_suppress Pe001,Pa010  /
-//                          -o "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC253 /
-//                          0-2.5.1a\Projects\zstack\Samples\SampleApp\CC2530 /
-//                          DB\CoordinatorEB\Obj\" -e --no_code_motion        /
-//                          --debug --core=plain --dptr=16,1                  /
-//                          --data_model=large --code_model=banked            /
-//                          --calling_convention=xdata_reentrant              /
-//                          --place_constants=data_rom --nr_virtual_regs 16   /
-//                          -I "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC253 /
-//                          0-2.5.1a\Projects\zstack\Samples\SampleApp\CC2530 /
-//                          DB\" -I "F:\zigbee程序\模块程序v2.0(0525)\ZStack- /
-//                          CC2530-2.5.1a\Projects\zstack\Samples\SampleApp\C /
-//                          C2530DB\..\Source\" -I "F:\zigbee程序\模块程序v2. /
-//                          0(0525)\ZStack-CC2530-2.5.1a\Projects\zstack\Samp /
-//                          les\SampleApp\CC2530DB\..\..\..\ZMain\TI2530DB\"  /
-//                          -I "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC253 /
-//                          0-2.5.1a\Projects\zstack\Samples\SampleApp\CC2530 /
-//                          DB\..\..\..\..\..\Components\hal\include\" -I     /
-//                          "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC2530-2 /
-//                          .5.1a\Projects\zstack\Samples\SampleApp\CC2530DB\ /
-//                          ..\..\..\..\..\Components\hal\target\CC2530EB\"   /
-//                          -I "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC253 /
-//                          0-2.5.1a\Projects\zstack\Samples\SampleApp\CC2530 /
-//                          DB\..\..\..\..\..\Components\mac\include\" -I     /
-//                          "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC2530-2 /
-//                          .5.1a\Projects\zstack\Samples\SampleApp\CC2530DB\ /
-//                          ..\..\..\..\..\Components\mac\high_level\" -I     /
-//                          "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC2530-2 /
-//                          .5.1a\Projects\zstack\Samples\SampleApp\CC2530DB\ /
-//                          ..\..\..\..\..\Components\mac\low_level\srf04\"   /
-//                          -I "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC253 /
-//                          0-2.5.1a\Projects\zstack\Samples\SampleApp\CC2530 /
-//                          DB\..\..\..\..\..\Components\mac\low_level\srf04\ /
-//                          single_chip\" -I "F:\zigbee程序\模块程序v2.0(0525 /
-//                          )\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\Sa /
-//                          mpleApp\CC2530DB\..\..\..\..\..\Components\mt\"   /
-//                          -I "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC253 /
-//                          0-2.5.1a\Projects\zstack\Samples\SampleApp\CC2530 /
-//                          DB\..\..\..\..\..\Components\osal\include\" -I    /
-//                          "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC2530-2 /
-//                          .5.1a\Projects\zstack\Samples\SampleApp\CC2530DB\ /
-//                          ..\..\..\..\..\Components\services\saddr\" -I     /
-//                          "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC2530-2 /
-//                          .5.1a\Projects\zstack\Samples\SampleApp\CC2530DB\ /
-//                          ..\..\..\..\..\Components\services\sdata\" -I     /
-//                          "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC2530-2 /
-//                          .5.1a\Projects\zstack\Samples\SampleApp\CC2530DB\ /
-//                          ..\..\..\..\..\Components\stack\af\" -I           /
-//                          "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC2530-2 /
-//                          .5.1a\Projects\zstack\Samples\SampleApp\CC2530DB\ /
-//                          ..\..\..\..\..\Components\stack\nwk\" -I          /
-//                          "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC2530-2 /
-//                          .5.1a\Projects\zstack\Samples\SampleApp\CC2530DB\ /
-//                          ..\..\..\..\..\Components\stack\sapi\" -I         /
-//                          "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC2530-2 /
-//                          .5.1a\Projects\zstack\Samples\SampleApp\CC2530DB\ /
-//                          ..\..\..\..\..\Components\stack\sec\" -I          /
-//                          "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC2530-2 /
-//                          .5.1a\Projects\zstack\Samples\SampleApp\CC2530DB\ /
-//                          ..\..\..\..\..\Components\stack\sys\" -I          /
-//                          "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC2530-2 /
-//                          .5.1a\Projects\zstack\Samples\SampleApp\CC2530DB\ /
-//                          ..\..\..\..\..\Components\stack\zdo\" -I          /
-//                          "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC2530-2 /
-//                          .5.1a\Projects\zstack\Samples\SampleApp\CC2530DB\ /
-//                          ..\..\..\..\..\Components\zmac\" -I               /
-//                          "F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC2530-2 /
-//                          .5.1a\Projects\zstack\Samples\SampleApp\CC2530DB\ /
-//                          ..\..\..\..\..\Components\zmac\f8w\" -Ohz         /
-//                          --require_prototypes                              /
-//    List file          =  F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC2530-2. /
-//                          5.1a\Projects\zstack\Samples\SampleApp\CC2530DB\C /
-//                          oordinatorEB\List\Coordinator.s51                 /
+//                          -DREJOIN_POLL_RATE=440 F:\github\zigbee_easy_modu /
+//                          le\zigbee_easy_module\Projects\zstack\zigbee_easy /
+//                          _module\zigbee_easy_module_APP\Source\Coordinator /
+//                          .c -D ZTOOL_P1 -D xMT_TASK -D MT_SYS_FUNC -D      /
+//                          MT_ZDO_FUNC -D xLCD_SUPPORTED=DEBUG -D            /
+//                          HAL_UART=TRUE -D HAL_LED=TRUE -D NV_INIT -D       /
+//                          NV_RESTORE -lC F:\github\zigbee_easy_module\zigbe /
+//                          e_easy_module\Projects\zstack\zigbee_easy_module\ /
+//                          zigbee_easy_module_APP\CC2530DB\CoordinatorEB\Lis /
+//                          t\ -lA F:\github\zigbee_easy_module\zigbee_easy_m /
+//                          odule\Projects\zstack\zigbee_easy_module\zigbee_e /
+//                          asy_module_APP\CC2530DB\CoordinatorEB\List\       /
+//                          --diag_suppress Pe001,Pa010 -o                    /
+//                          F:\github\zigbee_easy_module\zigbee_easy_module\P /
+//                          rojects\zstack\zigbee_easy_module\zigbee_easy_mod /
+//                          ule_APP\CC2530DB\CoordinatorEB\Obj\ -e            /
+//                          --no_code_motion --debug --core=plain             /
+//                          --dptr=16,1 --data_model=large                    /
+//                          --code_model=banked --calling_convention=xdata_re /
+//                          entrant --place_constants=data_rom                /
+//                          --nr_virtual_regs 16 -I                           /
+//                          F:\github\zigbee_easy_module\zigbee_easy_module\P /
+//                          rojects\zstack\zigbee_easy_module\zigbee_easy_mod /
+//                          ule_APP\CC2530DB\ -I F:\github\zigbee_easy_module /
+//                          \zigbee_easy_module\Projects\zstack\zigbee_easy_m /
+//                          odule\zigbee_easy_module_APP\CC2530DB\..\Source\  /
+//                          -I F:\github\zigbee_easy_module\zigbee_easy_modul /
+//                          e\Projects\zstack\zigbee_easy_module\zigbee_easy_ /
+//                          module_APP\CC2530DB\..\..\..\ZMain\TI2530DB\ -I   /
+//                          F:\github\zigbee_easy_module\zigbee_easy_module\P /
+//                          rojects\zstack\zigbee_easy_module\zigbee_easy_mod /
+//                          ule_APP\CC2530DB\..\..\..\..\..\Components\hal\in /
+//                          clude\ -I F:\github\zigbee_easy_module\zigbee_eas /
+//                          y_module\Projects\zstack\zigbee_easy_module\zigbe /
+//                          e_easy_module_APP\CC2530DB\..\..\..\..\..\Compone /
+//                          nts\hal\target\CC2530EB\ -I                       /
+//                          F:\github\zigbee_easy_module\zigbee_easy_module\P /
+//                          rojects\zstack\zigbee_easy_module\zigbee_easy_mod /
+//                          ule_APP\CC2530DB\..\..\..\..\..\Components\mac\in /
+//                          clude\ -I F:\github\zigbee_easy_module\zigbee_eas /
+//                          y_module\Projects\zstack\zigbee_easy_module\zigbe /
+//                          e_easy_module_APP\CC2530DB\..\..\..\..\..\Compone /
+//                          nts\mac\high_level\ -I F:\github\zigbee_easy_modu /
+//                          le\zigbee_easy_module\Projects\zstack\zigbee_easy /
+//                          _module\zigbee_easy_module_APP\CC2530DB\..\..\..\ /
+//                          ..\..\Components\mac\low_level\srf04\ -I          /
+//                          F:\github\zigbee_easy_module\zigbee_easy_module\P /
+//                          rojects\zstack\zigbee_easy_module\zigbee_easy_mod /
+//                          ule_APP\CC2530DB\..\..\..\..\..\Components\mac\lo /
+//                          w_level\srf04\single_chip\ -I                     /
+//                          F:\github\zigbee_easy_module\zigbee_easy_module\P /
+//                          rojects\zstack\zigbee_easy_module\zigbee_easy_mod /
+//                          ule_APP\CC2530DB\..\..\..\..\..\Components\mt\    /
+//                          -I F:\github\zigbee_easy_module\zigbee_easy_modul /
+//                          e\Projects\zstack\zigbee_easy_module\zigbee_easy_ /
+//                          module_APP\CC2530DB\..\..\..\..\..\Components\osa /
+//                          l\include\ -I F:\github\zigbee_easy_module\zigbee /
+//                          _easy_module\Projects\zstack\zigbee_easy_module\z /
+//                          igbee_easy_module_APP\CC2530DB\..\..\..\..\..\Com /
+//                          ponents\services\saddr\ -I                        /
+//                          F:\github\zigbee_easy_module\zigbee_easy_module\P /
+//                          rojects\zstack\zigbee_easy_module\zigbee_easy_mod /
+//                          ule_APP\CC2530DB\..\..\..\..\..\Components\servic /
+//                          es\sdata\ -I F:\github\zigbee_easy_module\zigbee_ /
+//                          easy_module\Projects\zstack\zigbee_easy_module\zi /
+//                          gbee_easy_module_APP\CC2530DB\..\..\..\..\..\Comp /
+//                          onents\stack\af\ -I F:\github\zigbee_easy_module\ /
+//                          zigbee_easy_module\Projects\zstack\zigbee_easy_mo /
+//                          dule\zigbee_easy_module_APP\CC2530DB\..\..\..\..\ /
+//                          ..\Components\stack\nwk\ -I                       /
+//                          F:\github\zigbee_easy_module\zigbee_easy_module\P /
+//                          rojects\zstack\zigbee_easy_module\zigbee_easy_mod /
+//                          ule_APP\CC2530DB\..\..\..\..\..\Components\stack\ /
+//                          sapi\ -I F:\github\zigbee_easy_module\zigbee_easy /
+//                          _module\Projects\zstack\zigbee_easy_module\zigbee /
+//                          _easy_module_APP\CC2530DB\..\..\..\..\..\Componen /
+//                          ts\stack\sec\ -I F:\github\zigbee_easy_module\zig /
+//                          bee_easy_module\Projects\zstack\zigbee_easy_modul /
+//                          e\zigbee_easy_module_APP\CC2530DB\..\..\..\..\..\ /
+//                          Components\stack\sys\ -I                          /
+//                          F:\github\zigbee_easy_module\zigbee_easy_module\P /
+//                          rojects\zstack\zigbee_easy_module\zigbee_easy_mod /
+//                          ule_APP\CC2530DB\..\..\..\..\..\Components\stack\ /
+//                          zdo\ -I F:\github\zigbee_easy_module\zigbee_easy_ /
+//                          module\Projects\zstack\zigbee_easy_module\zigbee_ /
+//                          easy_module_APP\CC2530DB\..\..\..\..\..\Component /
+//                          s\zmac\ -I F:\github\zigbee_easy_module\zigbee_ea /
+//                          sy_module\Projects\zstack\zigbee_easy_module\zigb /
+//                          ee_easy_module_APP\CC2530DB\..\..\..\..\..\Compon /
+//                          ents\zmac\f8w\ -Ohz --require_prototypes          /
+//    List file          =  F:\github\zigbee_easy_module\zigbee_easy_module\P /
+//                          rojects\zstack\zigbee_easy_module\zigbee_easy_mod /
+//                          ule_APP\CC2530DB\CoordinatorEB\List\Coordinator.s /
+//                          51                                                /
 //                                                                            /
 //                                                                            /
 ///////////////////////////////////////////////////////////////////////////////
@@ -601,7 +612,7 @@ node_confirm        SYMBOL "node_confirm"
         EXTERN _NIB
         EXTERN zgConfigPANID
 
-// F:\zigbee程序\模块程序v2.0(0525)\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\SampleApp\Source\Coordinator.c
+// F:\github\zigbee_easy_module\zigbee_easy_module\Projects\zstack\zigbee_easy_module\zigbee_easy_module_APP\Source\Coordinator.c
 //    1 /**************************************************************************************************
 //    2   Filename:       Coordinator.c
 //    3   Revised:        $Date: 2020.02.14 $
@@ -882,6 +893,17 @@ SampleApp_Init:
         ARGFRAME XSTACK, 38, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL SampleApp_Init, HalUARTWrite
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 38, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 38, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
         MOV     A,#-0x9
         LCALL   ?BANKED_ENTER_XDATA
         CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
@@ -977,7 +999,14 @@ SampleApp_Init:
         MOV     R3,#(`?<Constant "UartInit OK\\n">` >> 8) & 0xff
         MOV     R1,#0x0
         LCALL   ??HalUARTWrite?relay
-//  127   //Uart_Write("uartinit",sizeof("uartinit")-1);
+//  127   HalUARTWrite(0,"UartInit1 OK\n", sizeof("UartInit1 OK\n"));//串口发送
+        ; Setup parameters for call to function HalUARTWrite
+        MOV     R4,#0xe
+        MOV     R5,#0x0
+        MOV     R2,#`?<Constant "UartInit1 OK\\n">` & 0xff
+        MOV     R3,#(`?<Constant "UartInit1 OK\\n">` >> 8) & 0xff
+        MOV     R1,#0x0
+        LCALL   ??HalUARTWrite?relay
 //  128   //-----------------------------------------------------------------
 //  129 }
         MOV     A,#0x1d
@@ -4703,6 +4732,11 @@ SampleApp_MessageMSGCB:
 
         RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
         DATA8
+`?<Constant "UartInit1 OK\\n">`:
+        DB "UartInit1 OK\012"
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA8
 `?<Constant "cost">`:
         DB "cost"
 
@@ -4773,14 +4807,14 @@ SampleApp_MessageMSGCB:
 //  709 /*********************************************************************
 //  710 *********************************************************************/
 // 
-// 2 765 bytes in segment BANKED_CODE
+// 2 778 bytes in segment BANKED_CODE
 //    42 bytes in segment BANK_RELAYS
 //     2 bytes in segment SFR_AN
-//   152 bytes in segment XDATA_ROM_C
+//   166 bytes in segment XDATA_ROM_C
 //   153 bytes in segment XDATA_Z
 // 
-// 2 807 bytes of CODE  memory
-//   152 bytes of CONST memory
+// 2 820 bytes of CODE  memory
+//   166 bytes of CONST memory
 //     0 bytes of DATA  memory (+ 2 bytes shared)
 //   153 bytes of XDATA memory
 //

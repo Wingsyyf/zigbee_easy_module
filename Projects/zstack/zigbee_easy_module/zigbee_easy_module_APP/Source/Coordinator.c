@@ -124,7 +124,7 @@ void SampleApp_Init( uint8 task_id )
   uartConfig.callBackFunc=Uart_Read;
   HalUARTOpen(0,&uartConfig);
   HalUARTWrite(0,"UartInit OK\n", sizeof("UartInit OK\n"));//串口发送
-  //Uart_Write("uartinit",sizeof("uartinit")-1);
+  HalUARTWrite(0,"UartInit1 OK\n", sizeof("UartInit1 OK\n"));//串口发送
   //-----------------------------------------------------------------
 }
 
