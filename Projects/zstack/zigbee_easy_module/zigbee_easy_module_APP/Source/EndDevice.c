@@ -77,7 +77,7 @@
 #include "hal_uart.h"
 
 //定义事件
-#define SEND_DATA_EVENT 0x01
+#define HEART_BEAT_EVENT 0x01
 #define RESET_EVENT 0x02
 #define P2P_SEND_EVT 0x03
 
@@ -251,8 +251,8 @@ uint16 SampleApp_ProcessEvent( uint8 task_id, uint16 events )
           }
           if(SampleApp_NwkState==DEV_END_DEVICE||SampleApp_NwkState==DEV_ROUTER)
           {
-              //HalUARTWrite(0,"join",4);
-              osal_set_event(SampleApp_TaskID,SEND_DATA_EVENT);
+              HalUARTWrite(0,"join",4);
+              osal_set_event(SampleApp_TaskID,HEART_BEAT_EVENT);
           }
           break;
           
@@ -298,12 +298,12 @@ uint16 SampleApp_ProcessEvent( uint8 task_id, uint16 events )
     }
   }
  
-  if(events & SEND_DATA_EVENT)
+  if(events & HEART_BEAT_EVENT)
   {
     ShowInfo();
-    osal_start_timerEx( SampleApp_TaskID, SEND_DATA_EVENT,(3000 + (osal_rand() & 0x00FF)) );
+    osal_start_timerEx( SampleApp_TaskID, HEART_BEAT_EVENT,(3000 + (osal_rand() & 0x00FF)) );
     //osal_start_timerEx(SampleApp_TaskID,SEND_DATA_EVENT,3000);//定时函数，2000ms
-    return (events ^ SEND_DATA_EVENT);
+    return (events ^ HEART_BEAT_EVENT);
   }
   
   if(events & SAMPLEAPP_RESET_EVT)//常规重启事件
