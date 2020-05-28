@@ -4647,6 +4647,7 @@
       <file>$PROJ_DIR$\EndDeviceEB\List\hal_key.s51</file>
       <file>$PROJ_DIR$\EndDeviceEB\Obj\hal_led.r51</file>
       <file>$PROJ_DIR$\EndDeviceEB\Obj\hal_led.pbi</file>
+      <file>$PROJ_DIR$\EndDeviceEB\List\end13.map</file>
     </outputs>
     <file>
       <name>$PROJ_DIR$\..\Source\Coordinator.c</name>
@@ -4718,7 +4719,7 @@
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 361 243 298</file>
+          <file> 298 470</file>
         </tool>
       </outputs>
     </file>
@@ -6271,12 +6272,6 @@
     </file>
     <file>
       <name>$PROJ_DIR$\EndDeviceEB\Exe\end12.hex</name>
-      <outputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 361</file>
-        </tool>
-      </outputs>
       <inputs>
         <tool>
           <name>XLINK</name>
@@ -6313,6 +6308,21 @@
     </file>
     <file>
       <name>$PROJ_DIR$\EndDeviceEB\Exe\end10.hex</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 148 332 176 179 413 410 385 274 242 209 190 341 255 233 451 215 322 271 454 453 380 360 375 393 342 235 305 221 462 307 448 283 343 187 331 354 253 223 318 335 424 188 386 310 195 263 468 287 314 450 306 437 203 431 383 460 395 428 461 392 257 464 350 212 282 218 334 402 200 359 259 182</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\EndDeviceEB\Exe\end13.hex</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 470</file>
+        </tool>
+      </outputs>
       <inputs>
         <tool>
           <name>XLINK</name>
@@ -6404,10 +6414,6 @@
     <forcedrebuild>
       <name>$PROJ_DIR$\..\Source\Coordinator.c</name>
       <tool>ICC8051</tool>
-    </forcedrebuild>
-    <forcedrebuild>
-      <name>[MULTI_TOOL]</name>
-      <tool>XLINK</tool>
     </forcedrebuild>
   </configuration>
   <configuration>
